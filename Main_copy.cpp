@@ -138,13 +138,14 @@ void drawScreen(Tetris *board)
   int dw = board->iScreenDw;
   int **array = board->oScreen->get_array();
   //system("clear");
+  /*
   for(int i=0; i<dy; i++){
     for(int j=0; j<dx; j++){
       cout << array[i][j];
     }
     cout << "\n"; 
   }
-  cout << "\n\n in rectangle \n\n";
+  */
   for (int y = 0; y < dy - dw + 1; y++) {
     for (int x = dw - 1; x < dx - dw + 1; x++) {
       if (array[y][x] == 0){
@@ -156,7 +157,6 @@ void drawScreen(Tetris *board)
     }
     cout << endl;
   }
-  
 }
 #endif
 

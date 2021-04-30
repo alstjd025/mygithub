@@ -2,7 +2,7 @@
 #include <vector>
 #include <cmath>
 
-
+using namespace std;
 int main(){
 int T0D0[] = { 1, 1, 1, 1, -1 };
 int T0D1[] = { 1, 1, 1, 1, -1 };
@@ -50,29 +50,6 @@ int *setOfCBlockArrays[] = {
 };
 int MAX_BLK_DEGREES = 4;
 int MAX_BLK_TYPES = 7;
-/*
-for(int i=0; i<7; i++){
-    int k = 0;
-    while(setOfCBlockArrays[i*MAX_BLK_DEGREES][k] != -1){
-        std::cout << setOfCBlockArrays[i*MAX_BLK_DEGREES][k];
-        k++;
-    }
-    
-    std::cout << "\n";
-    std::cout << "k: " << k << "\n";    
-}*/
-std::vector<int*> l;
-for (int i=0; i< MAX_BLK_DEGREES*MAX_BLK_TYPES; i++){
-    l.push_back(setOfCBlockArrays[i]);
-}
-/*
-int k = 0;
-while(setOfCBlockArrays[4][k] != -1){
-    std::cout << l[4][k];
-    k++;
-}
-*/
-char a = '6';
-std::cout << int(a);
-//std::cout<< sizeof(setOfCBlockArrays[10][0]);
+
+cout << int('s');
 }

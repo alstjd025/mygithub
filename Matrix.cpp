@@ -152,6 +152,7 @@ ostream& operator<<(ostream& out, const Matrix& obj){
 
 Matrix& Matrix::operator=(const Matrix& obj)
 {
+  printf("=== \n");
   if (this == &obj) return *this;
   if ((dx != obj.dx) || (dy != obj.dy))
     alloc(obj.dy, obj.dx);
@@ -159,5 +160,6 @@ Matrix& Matrix::operator=(const Matrix& obj)
   for (int y = 0; y < dy; y++)
     for (int x = 0; x < dx; x++)
       array[y][x] = obj.array[y][x];
+  printf("=\n");
   return *this;
 }

@@ -1,6 +1,8 @@
 #include "Tetris.h"
 
 int Tetris::iScreenDw = 0;
+int Tetris::myMAX_BLK_TYPES = 0;
+int Tetris::myMAX_BLK_DEGREES = 0;
 std::vector<Matrix> Tetris::setofBlockObjects;
 
 Tetris::Tetris(int dy, int dx){
@@ -21,6 +23,8 @@ Tetris::Tetris(int* setofBlockArrays){
 };
 
 void Tetris::init(int* setOfBlockArrays[], int MAX_BLK_TYPES, int MAX_BLK_DEGREES){
+    myMAX_BLK_DEGREES = MAX_BLK_DEGREES;
+    myMAX_BLK_TYPES = MAX_BLK_TYPES;
     int arrayBlk_maxsize = 0;
     std::vector<int> blockdxdy;
     for(int i=0; i<MAX_BLK_TYPES; i++){ 
@@ -35,29 +39,31 @@ void Tetris::init(int* setOfBlockArrays[], int MAX_BLK_TYPES, int MAX_BLK_DEGREE
     iScreenDw = arrayBlk_maxsize;
     for (int i=0; i<MAX_BLK_TYPES; i++){
         for(int j=0; j<MAX_BLK_DEGREES; j++){   
-            setofBlockObjects.push_back(new Matrix(setOfBlockArrays[i*MAX_BLK_DEGREES + j],
+            setofBlockObjects.push_back(Matrix(setOfBlockArrays[i*MAX_BLK_DEGREES + j],
              blockdxdy[i], blockdxdy[i]));
+             cout << "blockdxdy " << blockdxdy[i] << "\n";
         }
     }
     //initialize iscreenDw, setOfBlockObjects(Matrix)
 };
 
 TetrisState Tetris::accept(int key){
-    cout << "accept" << "\n";
-    state = Running;
-
-    if(key >= 0 && key <= 6){
-        std::cout << "a";
+    cout << "accept key : " << key << " " <<  char(key) << "\n";
+    
+    if(key >= int('0') && key <= int('6')){
         if (juststarted == false)
             deletefulllines();
-        std::cout << "first";
+        cout << "accept in \n";
         Matrix iScreen = oScreen;
-        std::cout << "mid";
-        int idxBlockType = int(key);
+        int idxBlockType = key;
         idxBlockDegree = 0;
-        Matrix currBlk = setofBlockObjects[idxBlockType*MAX_BLK_TYPES + idxBlockDegree];
+        cout << setofBlockObjects[idxBlockType*myMAX_BLK_DEGREES + idxBlockDegree];
+        cout << "\n";
         return TetrisState(Running);
     }
+    else    
+        cout << "false \n";
+    
     return TetrisState(Running);
 };
 
