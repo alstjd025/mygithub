@@ -8,20 +8,16 @@ Tetris::Tetris(int dy, int dx){
     iScreenDx = dx;
     idxBlockDegree = 0;
     arrayscreen = createArrayscreen();
-    oScreen = new Matrix(arrayscreen, dy, dx);
-    for(int i=0; i<8; i++){
-        cout << oScreen->get_array()[8][i];
-    }
+    oScreen = new Matrix(arrayscreen, dy+iScreenDw, dx+iScreenDw*2);
     juststarted = true;
     cout << "Print Basic Properties" << "\n";
     cout << "iScreenDy" << iScreenDy << "\n";
     cout << "iScreenDx" << iScreenDx << "\n";
     cout << "iScreenDw" << iScreenDw << "\n";
-    
 };
 
 Tetris::Tetris(int* setofBlockArrays){
-    
+
 };
 
 void Tetris::init(int* setOfBlockArrays[], int MAX_BLK_TYPES, int MAX_BLK_DEGREES){
@@ -67,26 +63,27 @@ TetrisState Tetris::accept(int key){
 
 
 int* Tetris::createArrayscreen(){
-    
     int arrayScreenDx = iScreenDw * 2 + iScreenDx;
     int arrayScreenDy = iScreenDw + iScreenDy;
+    cout << arrayScreenDx  << " " << arrayScreenDy << "\n";
     int* arrayscreen = new int[arrayScreenDy * arrayScreenDx];
-    int i = 0;
-    for(; i<arrayScreenDy-iScreenDw; i++){
-        int j = 0;
-        for(; j<iScreenDw; j++)
+    for(int i=0; i<arrayScreenDy-iScreenDw; i++){
+        for(int j=0; j<iScreenDw; j++)
             arrayscreen[i*arrayScreenDx +j] = 1;
-        for(; j<iScreenDx-iScreenDw; j++)
+        for(int j=iScreenDw; j<arrayScreenDx-iScreenDw; j++)
             arrayscreen[i*arrayScreenDx +j] = 0;
-        for(; j<iScreenDx; j++)
+        for(int j=arrayScreenDx-iScreenDw; j<arrayScreenDx; j++)
             arrayscreen[i*arrayScreenDx +j] = 1;
     }
-    for(; i<iScreenDy; i++){
-        for(int j=0; j<iScreenDx; i++){
+    for(int i=arrayScreenDy-iScreenDw; i<arrayScreenDy; i++){ //segfault
+        for(int j=0; j<arrayScreenDx; j++){
             arrayscreen[i*arrayScreenDx + j] = 1;
         }
     }
-    
+    for(int i=0; i<arrayScreenDx*arrayScreenDy; i++)
+    {
+        cout << arrayscreen[i];
+    }
     return arrayscreen;
 };
 
