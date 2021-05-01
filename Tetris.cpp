@@ -69,6 +69,7 @@ TetrisState Tetris::accept(int key){
     else if(char(key) == 'd')
         left += 1;
     else if(char(key) == 'w'){
+        tempDegree = idxBlockDegree;
         idxBlockDegree = (idxBlockDegree + 1) % myMAX_BLK_DEGREES;
         currBlk = setofBlockObjects[idxBlockType*myMAX_BLK_DEGREES + idxBlockDegree];
     }
@@ -99,7 +100,7 @@ TetrisState Tetris::accept(int key){
             state = NewBlock;
         }
         else if(char(key) == 'w'){
-            idxBlockDegree = (idxBlockDegree - 1) % myMAX_BLK_DEGREES;
+            idxBlockDegree = tempDegree;
             currBlk = setofBlockObjects[idxBlockType*myMAX_BLK_DEGREES + idxBlockDegree];
         }
         tempBlk = iScreen->clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx());

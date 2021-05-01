@@ -24,6 +24,7 @@ class Tetris {
         int left;
         int idxBlockType;
         int idxBlockDegree;
+        int tempDegree;
         int* arrayscreen;
         bool juststarted;
 
