@@ -137,7 +137,7 @@ void drawScreen(Tetris *board)
   int dx = board->oScreen->get_dx();
   int dw = board->iScreenDw;
   int **array = board->oScreen->get_array();
-  //system("clear");
+  system("clear");
   /*
   for(int i=0; i<dy; i++){
     for(int j=0; j<dx; j++){

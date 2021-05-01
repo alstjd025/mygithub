@@ -28,13 +28,12 @@ class Tetris {
         int* arrayscreen;
         bool juststarted;
 
-
+        Tetris();
         Tetris(int dy, int dx);
-        Tetris(int* setofBlockarrays);
         static void init(int* setOfBlaockArrays[], int MAX_BLK_TYPES, int MAX_BLK_DEGREES);
         TetrisState accept(int key);
         int* createArrayscreen();
-        void deletefulllines();
+        void deleteFullLines();
         
 };
 

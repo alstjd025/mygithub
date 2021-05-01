@@ -15,7 +15,7 @@ Tetris::Tetris(int dy, int dx){
     juststarted = true;
 };
 
-Tetris::Tetris(int* setofBlockArrays){
+Tetris::Tetris(){
 
 };
 
@@ -47,7 +47,7 @@ TetrisState Tetris::accept(int key){
     state = Running;
     if(key - '0' >= 0 && key - '0' <= 6){
         if (juststarted == false)
-            deletefulllines();
+            deleteFullLines();
         iScreen = new Matrix(oScreen);
         idxBlockType = key - '0';
         idxBlockDegree = 0;
@@ -141,6 +141,6 @@ int* Tetris::createArrayscreen(){
     return arrayscreen;
 };
 
-void Tetris::deletefulllines(){
+void Tetris::deleteFullLines(){
     return;
 }
