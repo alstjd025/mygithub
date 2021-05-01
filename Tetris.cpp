@@ -13,11 +13,9 @@ Tetris::Tetris(int dy, int dx){
     iScreen = new Matrix(arrayscreen, dy+iScreenDw, dx+iScreenDw*2);
     oScreen = iScreen;
     juststarted = true;
+    
 };
 
-Tetris::Tetris(){
-
-};
 
 void Tetris::init(int* setOfBlockArrays[], int MAX_BLK_TYPES, int MAX_BLK_DEGREES){
     myMAX_BLK_DEGREES = MAX_BLK_DEGREES;
@@ -53,7 +51,7 @@ TetrisState Tetris::accept(int key){
         idxBlockDegree = 0;
         currBlk = setofBlockObjects[idxBlockType*myMAX_BLK_DEGREES + idxBlockDegree];
         top = 0;
-        left = iScreenDw + iScreenDx/2 + currBlk.get_dy()/2;
+        left = iScreenDw + iScreenDx/2 - currBlk.get_dy()/2;
         tempBlk = iScreen->clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx());
         tempBlk = tempBlk.add(&currBlk);
         juststarted = false;
@@ -134,13 +132,18 @@ int* Tetris::createArrayscreen(){
             arrayscreen[i*arrayScreenDx + j] = 1;
         }
     }
-    for(int i=0; i<arrayScreenDx*arrayScreenDy; i++)
-    {
-        cout << arrayscreen[i];
-    }
     return arrayscreen;
 };
 
 void Tetris::deleteFullLines(){
+    for(int i=0; i<iScreenDy; i++){
+        if(oScreen->clip(i, iScreenDw, i+1, iScreenDw+iScreenDx)->sum() == iScreenDx){
+            oScreen->paste(oScreen->clip(0, iScreenDw, i, iScreenDw+iScreenDx), 1, iScreenDw);
+        }    
+    }
     return;
+}
+
+Tetris::~Tetris(){
+    
 }

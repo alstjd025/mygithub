@@ -2,12 +2,12 @@
 CC=g++
 CFLAGS=-g -I. -fpermissive
 LDFLAGS=
-OBJS=Main_copy.o Matrix.o Tetris.o ttymodes.o
+OBJS=Main.o Matrix.o Tetris.o CTetris.o ttymodes.o
 DEBUG=0
 
-all:: Main_copy
+all:: Main
 
-Main_copy: $(OBJS)
+Main: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS_TET)
 
 %.o: %.c $(DEPS)

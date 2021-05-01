@@ -29,6 +29,7 @@ class Tetris {
         bool juststarted;
 
         Tetris();
+        ~Tetris();
         Tetris(int dy, int dx);
         static void init(int* setOfBlaockArrays[], int MAX_BLK_TYPES, int MAX_BLK_DEGREES);
         TetrisState accept(int key);

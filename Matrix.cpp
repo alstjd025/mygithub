@@ -49,7 +49,6 @@ Matrix::Matrix(const Matrix &obj) {
 
 Matrix::Matrix(int *arr, int col, int row) {
   alloc(col, row);
-  cout << "dx : " << dx << " dy : " << dy << "\n";
   for (int y = 0; y < dy; y++)
     for (int x = 0; x < dx; x++)
       array[y][x] = arr[y * dx + x];
