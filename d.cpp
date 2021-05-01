@@ -48,8 +48,4 @@ int *setOfCBlockArrays[] = {
   T5D0, T5D1, T5D2, T5D3,
   T6D0, T6D1, T6D2, T6D3,
 };
-int MAX_BLK_DEGREES = 4;
-int MAX_BLK_TYPES = 7;
-
-cout << int('s');
 }

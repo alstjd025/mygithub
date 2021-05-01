@@ -2,13 +2,17 @@
 #include "Matrix.h"
 #include <vector>
 #include <cmath>
-
+#include <string>
 
 enum TetrisState { Running, NewBlock, Finished };
 
 class Tetris {
     public:
         Matrix* oScreen;
+        Matrix* iScreen;
+        //Matrix* iScreen;
+        Matrix tempBlk;
+        Matrix currBlk;
         static int iScreenDw;
         static std::vector<Matrix> setofBlockObjects;
         static int myMAX_BLK_DEGREES;
@@ -16,10 +20,14 @@ class Tetris {
         TetrisState state;
         int iScreenDx;
         int iScreenDy;
+        int top;
+        int left;
+        int idxBlockType;
         int idxBlockDegree;
         int* arrayscreen;
         bool juststarted;
-    
+
+
         Tetris(int dy, int dx);
         Tetris(int* setofBlockarrays);
         static void init(int* setOfBlaockArrays[], int MAX_BLK_TYPES, int MAX_BLK_DEGREES);

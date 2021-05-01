@@ -10,12 +10,9 @@ Tetris::Tetris(int dy, int dx){
     iScreenDx = dx;
     idxBlockDegree = 0;
     arrayscreen = createArrayscreen();
-    oScreen = new Matrix(arrayscreen, dy+iScreenDw, dx+iScreenDw*2);
+    iScreen = new Matrix(arrayscreen, dy+iScreenDw, dx+iScreenDw*2);
+    oScreen = iScreen;
     juststarted = true;
-    cout << "Print Basic Properties" << "\n";
-    cout << "iScreenDy" << iScreenDy << "\n";
-    cout << "iScreenDx" << iScreenDx << "\n";
-    cout << "iScreenDw" << iScreenDw << "\n";
 };
 
 Tetris::Tetris(int* setofBlockArrays){
@@ -41,37 +38,86 @@ void Tetris::init(int* setOfBlockArrays[], int MAX_BLK_TYPES, int MAX_BLK_DEGREE
         for(int j=0; j<MAX_BLK_DEGREES; j++){   
             setofBlockObjects.push_back(Matrix(setOfBlockArrays[i*MAX_BLK_DEGREES + j],
              blockdxdy[i], blockdxdy[i]));
-             cout << "blockdxdy " << blockdxdy[i] << "\n";
         }
     }
     //initialize iscreenDw, setOfBlockObjects(Matrix)
 };
 
 TetrisState Tetris::accept(int key){
-    cout << "accept key : " << key << " " <<  char(key) << "\n";
-    
-    if(key >= int('0') && key <= int('6')){
+    state = Running;
+    if(key - '0' >= 0 && key - '0' <= 6){
         if (juststarted == false)
             deletefulllines();
-        cout << "accept in \n";
-        Matrix iScreen = oScreen;
-        int idxBlockType = key;
+        iScreen = new Matrix(oScreen);
+        idxBlockType = key - '0';
         idxBlockDegree = 0;
-        cout << setofBlockObjects[idxBlockType*myMAX_BLK_DEGREES + idxBlockDegree];
-        cout << "\n";
-        return TetrisState(Running);
+        currBlk = setofBlockObjects[idxBlockType*myMAX_BLK_DEGREES + idxBlockDegree];
+        top = 0;
+        left = iScreenDw + iScreenDx/2 + currBlk.get_dy()/2;
+        tempBlk = iScreen->clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx());
+        tempBlk = tempBlk.add(&currBlk);
+        juststarted = false;
+        cout << "";
+        if (tempBlk.anyGreaterThan(1))
+            state = Finished;
+        oScreen = new Matrix(iScreen);
+        oScreen->paste(&tempBlk, top, left);
+        return state;
     }
-    else    
-        cout << "false \n";
+    else if(char(key) == 'a')
+        left -= 1;
+    else if(char(key) == 'd')
+        left += 1;
+    else if(char(key) == 'w'){
+        idxBlockDegree = (idxBlockDegree + 1) % myMAX_BLK_DEGREES;
+        currBlk = setofBlockObjects[idxBlockType*myMAX_BLK_DEGREES + idxBlockDegree];
+    }
+    else if(char(key) == ' '){
+        while(!tempBlk.anyGreaterThan(1)){
+            top += 1;
+            tempBlk = iScreen->clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx());
+            tempBlk = tempBlk.add(&currBlk);        
+        }
+    }
+    else if(char(key) == 's')
+        top += 1;
+    else 
+        cout << "Wrong key \n";
+    tempBlk = iScreen->clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx());
+    tempBlk = tempBlk.add(&currBlk);
+    if (tempBlk.anyGreaterThan(1)){
+        if(char(key) == 'a')
+            left += 1;
+        else if(char(key) == 'd')
+            left -= 1;
+        else if(char(key) == 's'){
+            top -= 1;
+            state = NewBlock;
+        }
+        else if(char(key) == ' '){
+            top -= 1;
+            state = NewBlock;
+        }
+        else if(char(key) == 'w'){
+            idxBlockDegree = (idxBlockDegree - 1) % myMAX_BLK_DEGREES;
+            currBlk = setofBlockObjects[idxBlockType*myMAX_BLK_DEGREES + idxBlockDegree];
+        }
+        tempBlk = iScreen->clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx());
+        tempBlk = tempBlk.add(&currBlk);
+    }
+    oScreen = new Matrix(iScreen);
+    oScreen->paste(&tempBlk, top, left);
     
-    return TetrisState(Running);
+    return state;
 };
+
+
+
 
 
 int* Tetris::createArrayscreen(){
     int arrayScreenDx = iScreenDw * 2 + iScreenDx;
     int arrayScreenDy = iScreenDw + iScreenDy;
-    cout << arrayScreenDx  << " " << arrayScreenDy << "\n";
     int* arrayscreen = new int[arrayScreenDy * arrayScreenDx];
     for(int i=0; i<arrayScreenDy-iScreenDw; i++){
         for(int j=0; j<iScreenDw; j++)
@@ -79,6 +125,7 @@ int* Tetris::createArrayscreen(){
         for(int j=iScreenDw; j<arrayScreenDx-iScreenDw; j++)
             arrayscreen[i*arrayScreenDx +j] = 0;
         for(int j=arrayScreenDx-iScreenDw; j<arrayScreenDx; j++)
+
             arrayscreen[i*arrayScreenDx +j] = 1;
     }
     for(int i=arrayScreenDy-iScreenDw; i<arrayScreenDy; i++){ //segfault
