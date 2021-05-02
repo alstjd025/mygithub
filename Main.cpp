@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <termios.h>
 
+
+
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
@@ -16,15 +18,7 @@
 
 #include <CTetris.h>
 
-#define color_normal "\033[30m"
-#define color_black "\033[0m"
-#define color_red  "\033[31m"
-#define color_green "\033[32m"
-#define color_yellow "\033[33m"
-#define color_blue "\033[34m"
-#define color_magenta "\033[35m"
-#define color_cyan "\033[36m"
-#define b_color_black "\033[40m"
+
 
 using namespace std;
 
@@ -143,7 +137,7 @@ int *setOfCBlockArrays[] = {
 
 #if 1
 void drawScreen(CTetris *board)
-{
+	{
   int dy = board->oCScreen->get_dy();
   int dx = board->oCScreen->get_dx();
   int dw = board->iScreenDw;
@@ -224,8 +218,8 @@ int main(int argc, char *argv[]) {
 #if 1
   delete board;
 #endif
-
   cout << "Program terminated!" << endl;
+  printf(" ");
   return 0;
 }
 

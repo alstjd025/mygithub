@@ -1,13 +1,13 @@
 # Set compiler to use
-CC=g++
+CC=g++ 
 CFLAGS=-g -I. -fpermissive
 LDFLAGS=
 OBJS=Main.o Matrix.o Tetris.o CTetris.o ttymodes.o
-DEBUG=0
+DEBUG=1
 
-all:: Main
+all:: Main.exe
 
-Main: $(OBJS)
+Main.exe: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS_TET)
 
 %.o: %.c $(DEPS)

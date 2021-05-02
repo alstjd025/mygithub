@@ -24,13 +24,14 @@ TetrisState CTetris::accept(int key){
     if(key - '0' >= 0 && key - '0' <= 6){
         if (juststarted == false)
             deleteFullLines();
+        delete iCScreen;
         iCScreen = new Matrix(oCScreen);
     }
     state = Tetris::accept(key);
     currCBlk = setofCBlockObjects[idxBlockType*myMAX_BLK_DEGREES + idxBlockDegree];
     tempBlk = iCScreen->clip(top, left, top+currCBlk.get_dy(), left+currCBlk.get_dy());
     tempBlk = tempBlk.add(&currCBlk);
-
+    delete oCScreen;
     oCScreen = new Matrix(iCScreen);
     oCScreen->paste(&tempBlk, top, left);
     return state;
@@ -46,5 +47,9 @@ void CTetris::deleteFullLines(){
 };
 
 CTetris::~CTetris(){
-
+    delete iCScreen;
+    delete oCScreen;
+    delete arrayscreen;
+    setofBlockObjects.clear();
+    vector<Matrix>().swap(setofBlockObjects);
 }

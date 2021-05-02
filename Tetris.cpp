@@ -46,6 +46,7 @@ TetrisState Tetris::accept(int key){
     if(key - '0' >= 0 && key - '0' <= 6){
         if (juststarted == false)
             deleteFullLines();
+        delete iScreen;
         iScreen = new Matrix(oScreen);
         idxBlockType = key - '0';
         idxBlockDegree = 0;
@@ -58,6 +59,7 @@ TetrisState Tetris::accept(int key){
         cout << "";
         if (tempBlk.anyGreaterThan(1))
             state = Finished;
+        delete oScreen;
         oScreen = new Matrix(iScreen);
         oScreen->paste(&tempBlk, top, left);
         return state;
@@ -104,6 +106,7 @@ TetrisState Tetris::accept(int key){
         tempBlk = iScreen->clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx());
         tempBlk = tempBlk.add(&currBlk);
     }
+    delete oScreen;
     oScreen = new Matrix(iScreen);
     oScreen->paste(&tempBlk, top, left);
     
@@ -145,5 +148,10 @@ void Tetris::deleteFullLines(){
 }
 
 Tetris::~Tetris(){
-    
+    delete iScreen;
+    delete oScreen;
+    delete arrayscreen;
+    setofBlockObjects.clear();
+    vector <Matrix>().swap(setofBlockObjects);
+
 }
