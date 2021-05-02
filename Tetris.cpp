@@ -46,7 +46,6 @@ TetrisState Tetris::accept(int key){
     if(key - '0' >= 0 && key - '0' <= 6){
         if (juststarted == false)
             deleteFullLines();
-        delete iScreen;
         iScreen = new Matrix(oScreen);
         idxBlockType = key - '0';
         idxBlockDegree = 0;

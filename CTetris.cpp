@@ -24,7 +24,6 @@ TetrisState CTetris::accept(int key){
     if(key - '0' >= 0 && key - '0' <= 6){
         if (juststarted == false)
             deleteFullLines();
-        delete iCScreen;
         iCScreen = new Matrix(oCScreen);
     }
     state = Tetris::accept(key);
