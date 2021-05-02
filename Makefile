@@ -17,7 +17,7 @@ Main.exe: $(OBJS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 
-all:: Main
+osx:: Main
 
 Main: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS_TET)
@@ -31,4 +31,4 @@ Main: $(OBJS)
 
 
 clean: 
-	rm -f *.exe *.o *~ *.stackdump
+	rm -f Main *.exe *.o *~ *.stackdump

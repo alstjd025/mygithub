@@ -38,7 +38,8 @@ void Tetris::init(int* setOfBlockArrays[], int MAX_BLK_TYPES, int MAX_BLK_DEGREE
              blockdxdy[i], blockdxdy[i]));
         }
     }
-    //initialize iscreenDw, setOfBlockObjects(Matrix)
+    blockdxdy.clear();
+    std::vector<int>().swap(blockdxdy);
 };
 
 TetrisState Tetris::accept(int key){
@@ -152,5 +153,4 @@ Tetris::~Tetris(){
     delete arrayscreen;
     setofBlockObjects.clear();
     vector <Matrix>().swap(setofBlockObjects);
-
 }
