@@ -6,6 +6,7 @@ OBJS=Main.o Matrix.o Tetris.o CTetris.o ttymodes.o
 DEBUG=1
 
 all:: Main.exe
+<<<<<<< HEAD
 
 Main.exe: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS_TET)
@@ -18,8 +19,10 @@ Main.exe: $(OBJS)
 
 
 osx:: Main
+=======
+>>>>>>> master
 
-Main: $(OBJS)
+Main.exe: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS_TET)
 
 %.o: %.c $(DEPS)
