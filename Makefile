@@ -16,5 +16,19 @@ Main.exe: $(OBJS)
 %.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
+
+all:: Main
+
+Main: $(OBJS)
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS_TET)
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+%.o: %.cpp $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+
+
 clean: 
 	rm -f *.exe *.o *~ *.stackdump
